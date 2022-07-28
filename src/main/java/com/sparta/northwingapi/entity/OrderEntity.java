@@ -1,5 +1,6 @@
 package com.sparta.northwingapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparta.northwingapi.entity.CustomerEntity;
 import com.sparta.northwingapi.entity.EmployeeEntity;
 
@@ -15,10 +16,12 @@ public class OrderEntity {
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customerID;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EmployeeID")
     private EmployeeEntity employeeID;
