@@ -16,12 +16,12 @@ public class OrderEntity {
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customerID;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EmployeeID")
     private EmployeeEntity employeeID;
