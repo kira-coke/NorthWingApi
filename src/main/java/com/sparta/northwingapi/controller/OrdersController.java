@@ -18,6 +18,11 @@ public class OrdersController {
     @Autowired
     OrderEntityRepository repo;
 
+    @GetMapping("/orders_old/{id}")
+    public OrderEntity getOrderByIDOld(@PathVariable int id){
+        return repo.getReferenceById(id);
+    }
+
 
     @GetMapping("/orders/{id}")
     public OrderEntityDto getOrderByID(@PathVariable int id){
@@ -63,14 +68,18 @@ public class OrdersController {
         }
         return  listToReturn;
     }
-
+    //doesn't work
     @DeleteMapping("orders/delete/{id}")
     public void deleteOrderByID(@PathVariable int id){
         OrderEntity orderToDelete = repo.getReferenceById(id);
         repo.deleteAll();
 
     }
-
-    //@PostMapping("orders/add/")
+    //doesn't work
+    //Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported] ???
+    @PostMapping("orders/add/")
+    public void addNewOrder(@RequestBody OrderEntity order){
+        repo.save(order);
+    }
 
 }
