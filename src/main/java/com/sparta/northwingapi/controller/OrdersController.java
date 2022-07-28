@@ -34,24 +34,37 @@ public class OrdersController {
         for(OrderEntity e : list){
             listToReturn.add(new OrderEntityDto(e));
         }
-
         return listToReturn;
-
     }
-    //Below do not work - idk why  ???
+
     @GetMapping("/orders/employee/{id}")
-    public List<OrderEntity> getAllOrdersByEmployeeID(@PathVariable EmployeeEntity id){
-        return repo.findAllByEmployeeID(id);
+    public List<OrderEntityDto> getAllOrdersByEmployeeID(@PathVariable EmployeeEntity id){
+        List<OrderEntity> list = repo.findAllByEmployeeID(id);
+        List<OrderEntityDto> listToReturn = new ArrayList<>();
+        for(OrderEntity e : list){
+            listToReturn.add(new OrderEntityDto(e));
+        }
+        return listToReturn;
     }
 
-    @GetMapping("/orders/ship/{city}")
-    public List<OrderEntity> getAllOrdersByShipType(@PathVariable String city){
-        return repo.findOrderEntitiesByShipCity(city);
+    @GetMapping("/orders/ship_city/{city}")
+    public List<OrderEntityDto> getAllOrdersByCity(@PathVariable String city){
+        List<OrderEntity> list = repo.findOrderEntitiesByShipCity(city);
+        List<OrderEntityDto> listToReturn = new ArrayList<>();
+        for(OrderEntity e : list){
+            listToReturn.add(new OrderEntityDto(e));
+        }
+        return listToReturn;
     }
 
     @GetMapping("/orders/ship_country/{country}")
-    public List<OrderEntity> getAllOrdersByShippingCountry(@PathVariable String country){
-        return  repo.findOrderEntitiesByShipCountry(country);
+    public List<OrderEntityDto> getAllOrdersByShippingCountry(@PathVariable String country){
+        List<OrderEntity> list = repo.findOrderEntitiesByShipCountry(country);
+        List<OrderEntityDto> listToReturn = new ArrayList<>();
+        for(OrderEntity e : list){
+            listToReturn.add(new OrderEntityDto(e));
+        }
+        return  listToReturn;
     }
 
 }
