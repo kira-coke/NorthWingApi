@@ -7,9 +7,7 @@ import com.sparta.northwingapi.entity.OrderEntity;
 import com.sparta.northwingapi.repository.OrderEntityRepository;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,7 @@ public class OrdersController {
 
     @GetMapping("/orders/{id}")
     public OrderEntityDto getOrderByID(@PathVariable int id){
-        OrderEntityDto dto = new OrderEntityDto(repo.getReferenceById(id));
-        return dto;
+        return new OrderEntityDto(repo.getReferenceById(id));
     }
 
     @GetMapping("/orders/all")
@@ -66,5 +63,14 @@ public class OrdersController {
         }
         return  listToReturn;
     }
+
+    @DeleteMapping("orders/delete/{id}")
+    public void deleteOrderByID(@PathVariable int id){
+        OrderEntity orderToDelete = repo.getReferenceById(id);
+        repo.deleteAll();
+
+    }
+
+    //@PostMapping("orders/add/")
 
 }

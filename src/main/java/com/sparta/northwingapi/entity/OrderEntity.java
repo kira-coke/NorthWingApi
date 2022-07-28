@@ -3,6 +3,7 @@ package com.sparta.northwingapi.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparta.northwingapi.entity.CustomerEntity;
 import com.sparta.northwingapi.entity.EmployeeEntity;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,12 +18,12 @@ public class OrderEntity {
     private Integer id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customerID;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "EmployeeID")
     private EmployeeEntity employeeID;
 
@@ -160,4 +161,22 @@ public class OrderEntity {
         this.shipCountry = shipCountry;
     }
 
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", customerID=" + customerID +
+                ", employeeID=" + employeeID +
+                ", orderDate=" + orderDate +
+                ", requiredDate=" + requiredDate +
+                ", shippedDate=" + shippedDate +
+                ", freight=" + freight +
+                ", shipName='" + shipName + '\'' +
+                ", shipAddress='" + shipAddress + '\'' +
+                ", shipCity='" + shipCity + '\'' +
+                ", shipRegion='" + shipRegion + '\'' +
+                ", shipPostalCode='" + shipPostalCode + '\'' +
+                ", shipCountry='" + shipCountry + '\'' +
+                '}';
+    }
 }

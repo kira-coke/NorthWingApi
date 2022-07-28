@@ -13,4 +13,5 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Intege
     List<OrderEntity> findOrderEntitiesByShipCity(String city);
 
     List<OrderEntity>findOrderEntitiesByShipCountry(String country);
+
 }
