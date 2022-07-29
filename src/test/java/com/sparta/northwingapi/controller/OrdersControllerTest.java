@@ -37,10 +37,8 @@ class OrdersControllerTest {
             for (OrderEntity e : test) {
                 Assertions.assertEquals("Paris", e.getShipCity());
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
-
         }
     }
 
@@ -53,14 +51,29 @@ class OrdersControllerTest {
             List<OrderEntity> test = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/orders/employee/1"), OrderEntity[].class));
 
             for (OrderEntity e : test) {
-                System.out.println(e.toString());
                 Assertions.assertEquals(1,e.getEmployeeID().getId());
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
-
         }
+    }
+
+    @Test
+    void getAllOrdersByShipCountry(){
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+
+        try {
+            List<OrderEntity> test = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/orders/ship_country/USA"), OrderEntity[].class));
+
+            for (OrderEntity e : test) {
+                Assertions.assertEquals("USA", e.getShipCountry());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
