@@ -1,12 +1,11 @@
-Contributors: Kira, Mustafa, Piotr, Alfred
-
-Aim: Create API endpoints for some tables in the northwind database.
-
-APIs developed for category, customer, employee, orders, and product using Hibernate.
-
-Here are some of the end points available though the API.
+### Contributors: Kira, Mustafa, Piotr, Alfred
 
 
+#### Aim: Create API endpoints for some tables in the northwind database.
+
+#### APIs developed for category, customer, employee, orders, and product using Hibernate.
+
+##### Here are some of the end points available though the API:
 localhost:8080/category/all
 localhost:8080/category/id/{id}
 localhost:8080/category/name/{name}
