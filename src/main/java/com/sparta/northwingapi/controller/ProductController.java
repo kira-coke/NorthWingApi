@@ -38,12 +38,12 @@ public class ProductController {
         return repo.findAll();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/product/id/{id}")
     public ProductEntity getProductById(@PathVariable int id){
         return repo.getReferenceById(id);
     }
 
-    @GetMapping("/product/{name}")
+    @GetMapping("/product/name/{name}")
     public ProductEntity getProductByName(@PathVariable String name){
         return repo.getProductEntitiesByProductName(name);
     }

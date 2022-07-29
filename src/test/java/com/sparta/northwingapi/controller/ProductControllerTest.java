@@ -50,43 +50,37 @@ class ProductControllerTest {
         }
     }
 
+    @Test
+    void addingNewOrdersTest() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+        var values = new HashMap<String, String>();
+        values.put("id", "90");
+        values.put("productName", "new product");
+        values.put("quantityPerUnit", "5 per pack");
+        values.put("unitPrice", "53");
+        values.put("unitsInStock", "53");
+        values.put("unitsOnOrder", "53");
+        values.put("reorderLevel", "53");
+        values.put("hibernateLazyInitializer", "{}");
+        try {
+            List<OrderEntity> test = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/products/all"), OrderEntity[].class));
+            String requestBody = mapper.writeValueAsString(values);
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/products/post#"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+            client.send(request, HttpResponse.BodyHandlers.ofString());
+            List<OrderEntity> test2 = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/orders/all"), OrderEntity[].class));
 
+            Assertions.assertEquals(test.size()+1,test2.size());
 
-//    @Test
-//    void addingNewOrdersTest() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.findAndRegisterModules();
-//
-//        var values = new HashMap<String, String>();
-//        values.put("id", "666");
-//        values.put("orderDate", "1996-07-03T23:00:00Z");
-//        values.put("requiredDate", "1996-07-31T23:00:00Z");
-//        values.put("shippedDate", "1996-07-31T23:00:00Z");
-//        values.put("freight", "23.3232");
-//        values.put("shipName", "Vins et alcools Chevalier");
-//        values.put("shipAddress", "59 rue de l-Abbaye");
-//        values.put("shipCity", "Reims");
-//        values.put("shipRegion", "null");
-//        values.put("shipPostalCode", "51100");
-//        values.put("shipCountry", "France");
-//        try {
-//            List<OrderEntity> test = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/products/all"), OrderEntity[].class));
-//            String requestBody = mapper.writeValueAsString(values);
-//            HttpClient client = HttpClient.newHttpClient();
-//            HttpRequest request = HttpRequest.newBuilder()
-//                    .uri(URI.create("http://localhost:8080/orders/add/"))
-//                    .header("Content-Type", "application/json")
-//                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-//                    .build();
-//            client.send(request, HttpResponse.BodyHandlers.ofString());
-//            List<OrderEntity> test2 = Arrays.asList(mapper.readValue(new URL("http://localhost:8080/orders/all"), OrderEntity[].class));
-//
-//            Assertions.assertEquals(test.size()+1,test2.size());
-//
-//        } catch (IOException | InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
