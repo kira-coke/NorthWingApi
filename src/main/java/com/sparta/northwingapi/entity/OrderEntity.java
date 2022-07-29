@@ -1,13 +1,12 @@
 package com.sparta.northwingapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sparta.northwingapi.entity.CustomerEntity;
-import com.sparta.northwingapi.entity.EmployeeEntity;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -17,13 +16,13 @@ public class OrderEntity {
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
-
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customerID;
 
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "EmployeeID")
     private EmployeeEntity employeeID;
 
@@ -56,6 +55,7 @@ public class OrderEntity {
 
     @Column(name = "ShipCountry", length = 15)
     private String shipCountry;
+
 
     public Integer getId() {
         return id;
