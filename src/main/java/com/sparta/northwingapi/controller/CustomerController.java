@@ -1,4 +1,4 @@
-package com.sparta.northwingapi.controllers;
+package com.sparta.northwingapi.controller;
 
 import com.sparta.northwingapi.entity.CustomerEntity;
 import com.sparta.northwingapi.entity.OrderEntity;
