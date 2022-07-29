@@ -75,8 +75,7 @@ public class OrdersController {
         repo.deleteAll();
 
     }
-    //doesn't work
-    //Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported] ???
+
     @PostMapping("orders/add/")
     public void addNewOrder(@RequestBody OrderEntity order){
         repo.save(order);
