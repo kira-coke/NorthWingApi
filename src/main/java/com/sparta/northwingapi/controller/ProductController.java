@@ -33,7 +33,7 @@ public class ProductController {
         return "Hello from ProductController";
     }
 
-    @GetMapping("/products")
+    @GetMapping("/products/all")
     public List<ProductEntity> getProducts(){
         return repo.findAll();
     }
