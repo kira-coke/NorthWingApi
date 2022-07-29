@@ -80,11 +80,13 @@ public class CustomerController {
     }*/
 
     @PostMapping("customer/add/")
-    public void addNewCustomer(@RequestBody CustomerEntity customer){
+    public boolean addNewCustomer(@RequestBody CustomerEntity customer){
         if(!repo.existsById(customer.getId())){
             repo.save(customer);
+            return true;
         }else{
             System.out.println("Already Exists");
+            return false;
         }
     }
 
