@@ -29,8 +29,9 @@ class ProductControllerTest {
             ProductEntity result = mapper.readValue(
                     new URL("http://localhost:8080/product/1"),
                     ProductEntity.class);
-            int id = result.getId();
-            Assertions.assertTrue(id==1);
+            String name = result.getProductName();
+            Assertions.assertTrue(result.getId() == 1);
+            Assertions.assertTrue(result.getProductName().equals("Chair"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +69,7 @@ class ProductControllerTest {
             String requestBody = mapper.writeValueAsString(values);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:8080/products/post#"))
+                    .uri(URI.create("http://localhost:8080/products/post"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
