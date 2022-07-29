@@ -40,6 +40,14 @@ public class CustomerEntity {
     @Column(name = "Fax", length = 24)
     private String fax;
 
+    public CustomerEntity(String id, String companyName, String contactName, String contactTitle, String address,
+                          String city, String sp, String region, String postalCode, String phone, String fax) {
+    }
+
+    public CustomerEntity() {
+
+    }
+
     public String getId() {
         return id;
     }
