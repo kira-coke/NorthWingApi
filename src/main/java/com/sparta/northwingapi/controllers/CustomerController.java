@@ -1,6 +1,7 @@
 package com.sparta.northwingapi.controllers;
 
 import com.sparta.northwingapi.entity.CustomerEntity;
+import com.sparta.northwingapi.entity.OrderEntity;
 import com.sparta.northwingapi.repository.CustomerEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -78,4 +79,28 @@ public class CustomerController {
         }
     }*/
 
+    @PostMapping("customer/add/")
+    public void addNewCustomer(@RequestBody CustomerEntity customer){
+        if(!repo.existsById(customer.getId())){
+            repo.save(customer);
+        }else{
+            System.out.println("Already Exists");
+        }
+    }
+
+    @PostMapping("customer/change/address/{id}")
+    public void changeCustomerAddress(@PathVariable String id, @RequestBody CustomerEntity customer){
+        repo.getReferenceById(id).setAddress(customer.getAddress());
+        repo.save(repo.findById(id).get());
+    }
+    @PostMapping("customer/change/contactTitle/{id}")
+    public void changeContactTitle(@PathVariable String id, @RequestBody CustomerEntity customer){
+        repo.getReferenceById(id).setContactTitle(customer.getContactTitle());
+        repo.save(repo.findById(id).get());
+    }
+    @PostMapping("customer/change/companyName/{id}")
+    public void changeCompanyName(@PathVariable String id, @RequestBody CustomerEntity customer){
+        repo.getReferenceById(id).setCompanyName(customer.getCompanyName());
+        repo.save(repo.findById(id).get());
+    }
 }
