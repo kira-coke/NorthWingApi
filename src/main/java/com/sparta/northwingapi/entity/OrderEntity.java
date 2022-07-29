@@ -1,11 +1,12 @@
 package com.sparta.northwingapi.entity;
 
-import com.sparta.northwingapi.entity.CustomerEntity;
-import com.sparta.northwingapi.entity.EmployeeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -15,11 +16,13 @@ public class OrderEntity {
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customerID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "EmployeeID")
     private EmployeeEntity employeeID;
 
@@ -52,6 +55,7 @@ public class OrderEntity {
 
     @Column(name = "ShipCountry", length = 15)
     private String shipCountry;
+
 
     public Integer getId() {
         return id;
@@ -157,4 +161,22 @@ public class OrderEntity {
         this.shipCountry = shipCountry;
     }
 
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", customerID=" + customerID +
+                ", employeeID=" + employeeID +
+                ", orderDate=" + orderDate +
+                ", requiredDate=" + requiredDate +
+                ", shippedDate=" + shippedDate +
+                ", freight=" + freight +
+                ", shipName='" + shipName + '\'' +
+                ", shipAddress='" + shipAddress + '\'' +
+                ", shipCity='" + shipCity + '\'' +
+                ", shipRegion='" + shipRegion + '\'' +
+                ", shipPostalCode='" + shipPostalCode + '\'' +
+                ", shipCountry='" + shipCountry + '\'' +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package com.sparta.northwingapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -56,7 +58,7 @@ public class EmployeeEntity {
     @Lob
     @Column(name = "Notes", nullable = false)
     private String notes;
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ReportsTo")
     private EmployeeEntity reportsTo;
