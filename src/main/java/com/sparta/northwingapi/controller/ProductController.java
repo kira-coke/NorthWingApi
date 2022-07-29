@@ -5,12 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.northwingapi.entity.CustomerEntity;
 import com.sparta.northwingapi.entity.ProductEntity;
 import com.sparta.northwingapi.repository.ProductEntityRepository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -33,6 +41,11 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public ProductEntity getProductById(@PathVariable int id){
         return repo.getReferenceById(id);
+    }
+
+    @GetMapping("/product/{name}")
+    public ProductEntity getProductByName(@PathVariable String name){
+        return repo.getProductEntitiesByProductName(name);
     }
 
     //works
@@ -74,11 +87,35 @@ public class ProductController {
 
 
     @PatchMapping("product/patch")
-    public String patchProduct(@RequestBody String json) {
-        ObjectMapper mapper = new ObjectMapper();
-//        mapper.readValue(json, CustomerEntity.class)
-        return json;
-
+    public String patchProduct(@RequestBody String req) {
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject)parser.parse(req);
+            System.out.println(json.get("productName"));
+            ProductEntity oldProduct = repo.getReferenceById((Integer)json.get("id"));
+            if (json.get("productName") !=null){
+                oldProduct.setProductName((String)json.get("productName"));
+            }
+            if (json.get("quantityPerUnit") != null){
+                oldProduct.setQuantityPerUnit((String)json.get("quantityPerUnit"));
+            }
+            if (json.get("unitsInStock") != null){
+                oldProduct.setUnitsInStock((Integer) json.get("unitsInStock"));
+            }
+            if (json.get("unitsOnOrder") !=null){
+                oldProduct.setUnitsOnOrder((Integer) json.get("unitsOnOrder"));
+            }
+            if (json.get("reorderLevel") != null){
+                oldProduct.setUnitsOnOrder((Integer) json.get("reorderLevel"));
+            }
+            if (json.get("discontinued") != null){
+                oldProduct.setDiscontinued((Boolean) json.get("discontinued"));
+            }
+            repo.save(oldProduct);
+            return "success";
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    @PatchMapping("/product/patch")
