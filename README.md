@@ -3,7 +3,7 @@
 
 #### Aim: Create API endpoints for some tables in the northwind database.
 
-#### APIs developed for category, customer, employee, orders, and product using Hibernate.
+#### APIs developed using spring boot/hibernate for category, customer, employee, orders, and product from northwind.
 
 ##### Here are some of the end points available though the API:
 localhost:8080/category/all
